@@ -1,8 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { faker } from '@faker-js/faker'
 
-import User from '../../../Models/User'
-import StoreValidator from '../../../Validators/User/StoreValidator'
+import User from 'App/Models/User'
+import StoreValidator from 'App/Validators/User/StoreValidator'
 import Mail from '@ioc:Adonis/Addons/Mail'
 
 export default class RegistersController {
