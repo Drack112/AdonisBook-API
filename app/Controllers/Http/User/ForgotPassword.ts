@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { User } from '../../../Models'
-import { StoreValidator } from '../../../Validators/User/ForgotPassword'
+import { User, UserKey } from '../../../Models'
+import { StoreValidator, UpdateValidator } from '../../../Validators/User/ForgotPassword'
 
 export default class ForgotPasswordsController {
   public async store({ request, response }: HttpContextContract) {
@@ -23,5 +23,16 @@ export default class ForgotPasswordsController {
     })
 
     return response.ok({ message: 'Email de redefinição enviado com sucesso' })
+  }
+
+  public async update({ request, response }: HttpContextContract) {
+    const { key, password } = await request.validate(UpdateValidator)
+    const userKey = await UserKey.findByOrFail('key', key)
+    await userKey.load('user')
+
+    userKey.user.merge({ password })
+    await userKey.delete()
+
+    return response.ok({ message: 'Senha atualizada com sucesso' })
   }
 }
