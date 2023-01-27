@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
-import Userkey from './Userkey'
+import UserKey from './UserKey'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -20,7 +20,7 @@ export default class User extends BaseModel {
   public password: string
 
   @column()
-  public rememberMeToken: string | null
+  public rememberMeToken?: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -35,6 +35,6 @@ export default class User extends BaseModel {
     }
   }
 
-  @hasMany(() => Userkey)
-  public keys: HasMany<typeof Userkey>
+  @hasMany(() => UserKey)
+  public keys: HasMany<typeof UserKey>
 }
