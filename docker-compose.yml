@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  db:
+    build: .docker/postgres
+    container_name: postgres-database
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    volumes:
+      - .docker/dbdata:/var/lib/postgresql/data
+      - .docker/postgres:/docker-entrypoint-initdb.d
+    ports:
+      - '5432:5432'
+    networks:
+      - postgres
+    restart: always
+    tty: true
+    env_file:
+      - .env
+
+  mailserver:
+    image: mailhog/mailhog
+    container_name: ecommerce-mailserver
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
+
+  pgadmin:
+    container_name: pgadmin-container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - '5000:80'
+    networks:
+      - postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+
+networks:
+  postgres:
+    driver: bridge
