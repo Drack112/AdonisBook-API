@@ -3,8 +3,8 @@ import Mail from '@ioc:Adonis/Addons/Mail'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { faker } from '@faker-js/faker'
 
-import StoreValidator from '../../../Validators/User/StoreValidator'
-import UpdateValidator from '../../../Validators/User/UpdateValidator'
+import StoreValidator from '../../../Validators/User/Register/StoreValidator'
+import UpdateValidator from '../../../Validators/User/Register/UpdateValidator'
 import { User, UserKey } from '../../../Models'
 
 export default class RegistersController {
