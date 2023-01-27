@@ -3,9 +3,10 @@ lockfileVersion: 5.4
 specifiers:
   '@adonisjs/assembler': ^5.9.5
   '@adonisjs/auth': ^8.2.3
-  '@adonisjs/core': ^5.8.0
+  '@adonisjs/core': ^5.9.0
   '@adonisjs/lucid': ^18.3.0
-  '@adonisjs/repl': ^3.1.0
+  '@adonisjs/repl': ^3.1.11
+  '@faker-js/faker': ^7.6.0
   '@japa/preset-adonis': ^1.2.0
   '@japa/runner': ^2.2.2
   '@types/proxy-addr': ^2.0.0
@@ -22,7 +23,7 @@ specifiers:
   proxy-addr: ^2.0.7
   reflect-metadata: ^0.1.13
   source-map-support: ^0.5.21
-  typescript: ~4.6
+  typescript: ~4.6.4
   youch: ^3.2.2
   youch-terminal: ^2.1.5
 
@@ -31,6 +32,7 @@ dependencies:
   '@adonisjs/core': 5.9.0
   '@adonisjs/lucid': 18.3.0_bazovntjwcn6gvwsomdsrfc5ga
   '@adonisjs/repl': 3.1.11_@adonisjs+core@5.9.0
+  '@faker-js/faker': 7.6.0
   luxon: 3.2.1
   pg: 8.8.0
   proxy-addr: 2.0.7
