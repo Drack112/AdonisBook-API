@@ -30,7 +30,7 @@ export default class ForgotPasswordsController {
     const userKey = await UserKey.findByOrFail('key', key)
     await userKey.load('user')
 
-    userKey.user.merge({ password })
+    await userKey.user.merge({ password })
     await userKey.delete()
 
     return response.ok({ message: 'Senha atualizada com sucesso' })
