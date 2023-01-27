@@ -63,6 +63,7 @@
     "@faker-js/faker": "^7.6.0",
     "luxon": "^3.2.1",
     "pg": "^8.8.0",
+    "phc-argon2": "^1.1.4",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.21"
