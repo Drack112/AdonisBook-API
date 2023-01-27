@@ -1,12 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Mail from '@ioc:Adonis/Addons/Mail'
 import { faker } from '@faker-js/faker'
 
-import User from 'App/Models/User'
-import StoreValidator from 'App/Validators/User/StoreValidator'
-import Mail from '@ioc:Adonis/Addons/Mail'
+import StoreValidator from '../../../Validators/User/StoreValidator'
+import { User, UserKey } from '../../../Models'
 
 export default class RegistersController {
-  public async store({ request, auth }: HttpContextContract) {
+  public async store({ request }: HttpContextContract) {
     const { email, redirectUrl } = await request.validate(StoreValidator)
     const user = await User.create({ email })
     await user.save()
@@ -17,7 +17,7 @@ export default class RegistersController {
       key,
     })
 
-    const link = `${redirectUrl}/${key}}`
+    const link = `${redirectUrl}/${key}`
 
     await Mail.send((message) => {
       message.to(email)
@@ -26,6 +26,11 @@ export default class RegistersController {
       message.htmlView('email/verify-email', { link })
     })
   }
-  public async show({}: HttpContextContract) {}
+  public async show({ params }: HttpContextContract) {
+    const userKey = await UserKey.findByOrFail('key', params.key)
+    const user = await userKey.related('user').query().firstOrFail()
+
+    return user
+  }
   public async update({}: HttpContextContract) {}
 }
