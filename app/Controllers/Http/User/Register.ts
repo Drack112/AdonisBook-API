@@ -35,9 +35,9 @@ export default class RegistersController {
   }
   public async show({ params }: HttpContextContract) {
     const userKey = await UserKey.findByOrFail('key', params.key)
-    const user = await userKey.related('user').query().firstOrFail()
+    userKey.load('user')
 
-    return user
+    return userKey.user
   }
   public async update({ request, response }: HttpContextContract) {
     const { key, name, password } = await request.validate(UpdateValidator)
