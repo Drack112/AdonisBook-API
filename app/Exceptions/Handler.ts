@@ -15,30 +15,8 @@
 
 import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
 export default class ExceptionHandler extends HttpExceptionHandler {
   constructor() {
     super(Logger)
-  }
-
-  protected statusPages: {
-    '404': 'errors/not-found'
-    '500...599': 'errors/server-error'
-  }
-
-  public async handle(error: any, ctx: HttpContextContract): Promise<any> {
-    return ctx.response.status(error.status).send(error.message)
-  }
-
-  public async report(error: any, ctx: HttpContextContract) {
-    if (error.status >= 500) {
-      this.logger.error(error.message, {
-        stack: error.stack,
-        message: error.message,
-        status: error.status,
-        name: error.name,
-      })
-    }
   }
 }
