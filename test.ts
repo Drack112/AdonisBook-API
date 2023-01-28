@@ -13,6 +13,8 @@
 */
 
 process.env.NODE_ENV = 'test'
+process.env.MYSQL_DB_NAME = 'testing'
+process.env.LOG_LEVEL = 'fatal'
 
 import 'reflect-metadata'
 import sourceMapSupport from 'source-map-support'
