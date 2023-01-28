@@ -11,3 +11,4 @@ Route.get('/users', 'User/Main.show').middleware('auth')
 Route.put('/users', 'User/Main.update').middleware('auth')
 
 Route.put('/users/avatar', 'User/Avatars.update').middleware('auth')
+Route.delete('/users/avatar', 'User/Avatars.destroy').middleware('auth')
