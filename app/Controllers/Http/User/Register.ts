@@ -8,7 +8,7 @@ import UpdateValidator from '../../../Validators/User/Register/UpdateValidator'
 import { User, UserKey } from '../../../Models'
 
 export default class RegistersController {
-  public async store({ request }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     await Database.transaction(async (trx) => {
       const { email, redirectUrl } = await request.validate(StoreValidator)
       const user = new User()
@@ -23,7 +23,7 @@ export default class RegistersController {
         key,
       })
 
-      const link = `${redirectUrl}/${key}`
+      const link = `${redirectUrl}/users/register/${key}`
 
       await Mail.send((message) => {
         message.to(email)
@@ -31,13 +31,15 @@ export default class RegistersController {
         message.subject('Criação de conta')
         message.htmlView('email/verify-email', { link })
       })
+
+      return response.ok({ message: 'E-mail de ativação enviado com sucesso' })
     })
   }
   public async show({ params }: HttpContextContract) {
     const userKey = await UserKey.findByOrFail('key', params.key)
-    userKey.load('user')
+    const user = await userKey.related('user').query().firstOrFail()
 
-    return userKey.user
+    return user
   }
   public async update({ request, response }: HttpContextContract) {
     const { key, name, password } = await request.validate(UpdateValidator)
