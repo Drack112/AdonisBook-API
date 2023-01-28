@@ -11,5 +11,8 @@ export default class UpdateValidator {
   })
 
   public cacheKey = this.ctx.routeKey
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'file.size': 'O arquivo deve ser no máximo 5 MB',
+    'file.extnames': 'A extensão para o {{ field }} não é aceita',
+  }
 }
