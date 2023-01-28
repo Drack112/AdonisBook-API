@@ -24,7 +24,9 @@ export default class AvatarsController {
         overwrite: true,
       })
 
-      return avatar
+      return avatar.serialize({
+        fields: ['url'],
+      })
     })
 
     return response
